@@ -100,7 +100,7 @@ def withdraw_cash():
             receipt_choice = input("Would you like a receipt? (yes/no): ").strip().lower()
             amount = float(input("Enter the amount to withdraw: "))
             transaction_type = 'Withdraw'
-            withdraw_limit = 50000
+            withdraw_limit = 5000
 
             if amount > balance:
                 print("Insufficient funds. Please try a smaller amount.")
