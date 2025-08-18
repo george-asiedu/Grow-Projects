@@ -1,9 +1,12 @@
+from datetime import date
+
 user_pin = 5566
 name = input("What is your name: ")
 serial_number = input("enter your atm card's serial number: ")
 choice = 0
 balance = 0.0
 transactions = []
+current_date = date.today()
 
 def introduction():
     print(f"\nHello {name}, welcome to the MEST ATM system.")
@@ -105,11 +108,20 @@ def transactions_history():
         for transaction in transactions:
             print(transaction)
 
-def receipt(amount):
-    print("\nPrinting receipt...")
+def receipt(amount, transaction_type):
+    print("\n--------------------------")
+    print("ATM RECEIPT")
+    print(f"Transaction: {transaction_type}")
     print(f"Name: {name}")
-    print(f"Serial Number: {serial_number}")
-    print(f"You have successfully withdrawn an amount of GHC{amount}. Your current balance is GHC{balance}.")
+    print(f"Amount: {amount}")
+    print(f"Balance: {balance}")
+    print(f"Date: {current_date}")
+    print("\n--------------------------")
+
+    if transaction_type == 'withdraw':
+        print(f"You have successfully withdrawn an amount of GHC{amount}. Your current balance is GHC{balance}.")
+    elif transaction_type == 'deposit':
+        print(f"You have successfully deposited an amount of GHC{amount}. Your current balance is GHC{balance}.")
 
 def exit_atm():
     print("Thank you for using the MEST ATM system. Goodbye!")
