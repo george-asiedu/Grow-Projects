@@ -2,7 +2,6 @@ from datetime import date
 
 user_pin = 5566
 name = input("What is your name: ")
-serial_number = input("enter your atm card's serial number: ")
 choice = 0
 balance = 0.0
 transactions = []
@@ -58,22 +57,49 @@ def menu_options():
 
 def deposit_cash():
     global balance
-    amount = float(input("Enter the amount to deposit: "))
-    balance += amount
-    transactions.append(f"Deposited: ${amount}")
-    print(f"You have successfully deposited an amount of GHC{amount}. Your current balance is GHC{balance}")
+    print("Deposit cash.")
+    print("-------------- \n")
+
+    while True:
+        try:
+            receipt_choice = input("Would you like a receipt? (yes/no): ").strip().lower()
+            amount = float(input("Enter the amount to deposit: "))
+            transaction_type = 'Deposit'
+
+            if amount <= 0:
+                print("Invalid amount. Please enter a positive number.")
+                continue
+
+            balance += amount
+            transactions.append(f"Deposited: ${amount}")
+
+            if receipt_choice not in ['yes', 'no']:
+                print("Invalid choice. Please enter 'yes' or 'no'.")
+                continue
+
+            if receipt_choice == 'yes':
+                receipt(amount, transaction_type)
+            else:
+                print("Transaction completed without a receipt.")
+
+            return amount, transaction_type
+
+        except ValueError:
+            print("Invalid input. Please enter a numeric amount.")
 
 def check_balance():
     print(f"Your current balance is GHC{balance}.")
 
 def withdraw_cash():
     global balance
-    print("Withdrawn cash. ")
+    print("Withdrawn cash.")
     print("-------------- \n")
+
     while True:
         try:
             receipt_choice = input("Would you like a receipt? (yes/no): ").strip().lower()
             amount = float(input("Enter the amount to withdraw: "))
+            transaction_type = 'Withdraw'
 
             if amount > balance:
                 print("Insufficient funds. Please try a smaller amount.")
@@ -91,11 +117,11 @@ def withdraw_cash():
                 continue
 
             if receipt_choice == 'yes':
-                receipt(amount)
+                receipt(amount, transaction_type)
             else:
                 print("Transaction completed without a receipt.")
 
-            return amount
+            return amount, transaction_type
 
         except ValueError:
             print("Invalid input. Please enter a numeric amount.")
@@ -118,9 +144,9 @@ def receipt(amount, transaction_type):
     print(f"Date: {current_date}")
     print("\n--------------------------")
 
-    if transaction_type == 'withdraw':
+    if transaction_type == 'Withdraw':
         print(f"You have successfully withdrawn an amount of GHC{amount}. Your current balance is GHC{balance}.")
-    elif transaction_type == 'deposit':
+    elif transaction_type == 'Deposit':
         print(f"You have successfully deposited an amount of GHC{amount}. Your current balance is GHC{balance}.")
 
 def exit_atm():
