@@ -71,7 +71,7 @@ def deposit_cash():
                 continue
 
             balance += amount
-            transactions.append(f"Deposited: ${amount}")
+            transactions.append(f"Deposited: ${amount}, Timestamp: {current_date}")
 
             if receipt_choice not in ['yes', 'no']:
                 print("Invalid choice. Please enter 'yes' or 'no'.")
@@ -115,7 +115,7 @@ def withdraw_cash():
                 continue
 
             balance -= amount
-            transactions.append(f"Withdrew: ${amount}")
+            transactions.append(f"Withdrew: ${amount}, Timestamp: {current_date}")
 
             if receipt_choice not in ['yes', 'no']:
                 print("Invalid choice. Please enter 'yes' or 'no'.")
