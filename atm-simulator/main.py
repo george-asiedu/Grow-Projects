@@ -7,10 +7,13 @@ choice = 0
 balance = 0.0
 transactions = []
 current_date = date.today()
-
 root = tk.Tk()
-root.title("ATM Simulator System")
-root.geometry("600x600")
+
+def open_window():
+    global root
+    root.title("ATM Simulator System")
+    root.geometry("600x600")
+    root.mainloop()
 
 def introduction():
     global name
@@ -172,5 +175,4 @@ def main():
         print("Login successful! You can now access your account.")
     menu_options()
 
-root.mainloop()
 main()
