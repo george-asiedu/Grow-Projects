@@ -1,13 +1,21 @@
 from datetime import date
+import tkinter as tk
 
 user_pin = 5566
-name = input("What is your name: ")
+name = ''
 choice = 0
 balance = 0.0
 transactions = []
 current_date = date.today()
 
+root = tk.Tk()
+root.title("ATM Simulator System")
+root.geometry("600x600")
+
 def introduction():
+    global name
+    user_input = input("What is your name: ")
+    name = user_input
     print(f"\nHello {name}, welcome to the MEST ATM system.")
 
 def auth_pin():
@@ -164,4 +172,5 @@ def main():
         print("Login successful! You can now access your account.")
     menu_options()
 
+root.mainloop()
 main()
