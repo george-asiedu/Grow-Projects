@@ -140,14 +140,11 @@ class ATMSimulator:
 
     def print_receipt(self, amount, transaction_type):
         receipt_text = (
-            f"\n--------------------------\n"
-            f"ATM RECEIPT\n"
             f"Transaction: {transaction_type}\n"
             f"Name: {name}\n"
             f"Amount: {amount}\n"
-            f"Balance: {balance}\n"
+            f"Account Balance: {balance}\n"
             f"Date: {current_date}\n"
-            f"--------------------------"
         )
         messagebox.showinfo("Receipt", receipt_text)
 
