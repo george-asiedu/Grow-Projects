@@ -3,3 +3,4 @@ __pycache__/
 vscode/
 
 task_manager/.venv/
+.venv/
