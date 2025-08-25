@@ -1,0 +1,124 @@
+user_pin = 5566
+name = input("What is your name: ")
+serial_number = input("enter your atm card's serial number: ")
+choice = 0
+balance = 0.0
+transactions = []
+
+def introduction():
+    print(f"\nHello {name}, welcome to the MEST ATM system.")
+
+def auth_pin():
+    while True:
+        try:
+            user_input = int(input("Enter your PIN: "))
+            if user_input == user_pin:
+                return True
+            else:
+                print("Incorrect PIN. Please try again.")
+        except ValueError:
+            print("Invalid input. Please enter a numeric PIN.")
+
+def show_menu():
+    print("\nATM Menu:")
+    print("1. Deposit Cash")
+    print("2. Check Balance")
+    print("3. Withdraw Cash")
+    print("4. Transactions History")
+    print("5. Exit ATM")
+
+def menu_options():
+    global choice
+    show_menu()
+
+    while True:
+        try:
+            choice = int(input("Select an option (1-5): "))
+            if choice == 1:
+                deposit_cash()
+                show_menu()
+            elif choice == 2:
+                check_balance()
+                show_menu()
+            elif choice == 3:
+                withdraw_cash()
+                show_menu()
+            elif choice == 4:
+                transactions_history()
+                show_menu()
+            elif choice == 5:
+                exit_atm()
+            else:
+                print("Invalid choice. Please select a number between 1 and 5.")
+        except ValueError:
+            print("Invalid input. Please enter a numeric option.")
+
+def deposit_cash():
+    global balance
+    amount = float(input("Enter the amount to deposit: "))
+    balance += amount
+    transactions.append(f"Deposited: ${amount}")
+    print(f"You have successfully deposited an amount of GHC{amount}. Your current balance is GHC{balance}")
+
+def check_balance():
+    print(f"Your current balance is GHC{balance}.")
+
+def withdraw_cash():
+    global balance
+    print("Withdrawn cash. ")
+    print("-------------- \n")
+    while True:
+        try:
+            receipt_choice = input("Would you like a receipt? (yes/no): ").strip().lower()
+            amount = float(input("Enter the amount to withdraw: "))
+
+            if amount > balance:
+                print("Insufficient funds. Please try a smaller amount.")
+                continue
+
+            elif amount <= 0:
+                print("Invalid amount. Please enter a positive number.")
+                continue
+
+            balance -= amount
+            transactions.append(f"Withdrew: ${amount}")
+
+            if receipt_choice not in ['yes', 'no']:
+                print("Invalid choice. Please enter 'yes' or 'no'.")
+                continue
+
+            if receipt_choice == 'yes':
+                receipt(amount)
+            else:
+                print("Transaction completed without a receipt.")
+
+            return amount
+
+        except ValueError:
+            print("Invalid input. Please enter a numeric amount.")
+
+def transactions_history():
+    if not transactions:
+        print("No transactions available.")
+    else:
+        print("Transaction History:")
+        for transaction in transactions:
+            print(transaction)
+
+def receipt(amount):
+    print("\nPrinting receipt...")
+    print(f"Name: {name}")
+    print(f"Serial Number: {serial_number}")
+    print(f"You have successfully withdrawn an amount of GHC{amount}. Your current balance is GHC{balance}.")
+
+def exit_atm():
+    print("Thank you for using the MEST ATM system. Goodbye!")
+    exit()
+
+def main():
+    introduction()
+    if auth_pin():
+        print("Login successful! You can now access your account.")
+    menu_options()
+
+main()
